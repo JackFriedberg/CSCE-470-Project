@@ -14,7 +14,6 @@ async function main() {
     makeWebpage();
 }
 
-
 async function makeWebpage(){
 
     app.use(express.static(__dirname + '/public'));
@@ -52,4 +51,36 @@ var solrClient = new SolrNode({
     protocol: 'http'
 });
 
-main();
+app.get('/', function(req, res) {
+    io.on('connection', function(socket){
+        socket.on('search', function(searchText){
+            searchSolr(searchText);
+        });
+    });
+
+    res.render('index');
+})
+
+app.post('/', function(req, res) {
+    let query = req.body.city;
+    var strQuery = solrClient.query().q(searchText);
+    solrClient.search(strQuery, function (err, result) {
+        if (err) {
+            res.render('index', {results: null, error: 'Error, please try
+again.'});
+        } else {
+           //io.emit('sendResults', result);
+           res.render('index' {results: result, error: null});
+        }
+    });
+    res.render('index');
+})
+
+app.listen(3000, function () {
+    console.log('Example app listening on port 3000!')
+})
+
+app.set('view engine', 'ejs')
+app.use(express.static('public')
+
+//main();

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+	 <meta charset="UTF-8">
+  </head>
+  
+  <body>
+
+    <div>
+      <h3>Search Solr Below:</h3>
+      <div>
+        Search Text: <input type="text" name="searchText" id="searchText">
+        <input type="button" value="Submit" onclick="sendSearch()">
+      </div>
+      <div>
+        <h3> Results</h3>
+        <div id = "resultsDiv">
+        </div>
+      </div>
+    </div>
+   
+    <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)--> 
+    <script>
+      //socket io variable - talks front end to backend 
+      var socket = io();
+
+      //get the value inside the input box and send it to the backend
+      function sendSearch(){
+        var searchText = document.getElementById('searchText').value;
+        socket.emit('search', searchText);
+      }
+
+      //this function runs when backend passes Solr queries to the front end
+      socket.on('sendResults', function(results){
+        //output search results in the console
+        console.log(results.response);
+        //get the documents returned
+        allDocs = results.response.docs;
+        //get the div to be updated with results
+        var divToUpdate = document.getElementById("resultsDiv");
+        //delete all prior results
+        while (divToUpdate.firstChild) {
+          divToUpdate.removeChild(divToUpdate.firstChild);
+        }
+        //for each document, make a new <P> element and store the entry id inside. Then append to the results div
+        for (i = 0; i < allDocs.length; i++){
+          var responseString = allDocs[i].id;
+          var responseEntry = document.createElement("p");
+          responseEntry.innerHTML = responseString;
+          divToUpdate.appendChild(responseEntry);
+        }
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
+
+  
