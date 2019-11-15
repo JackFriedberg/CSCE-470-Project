@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+shrink-to-fit=no">
+
     <link rel="stylesheet" type="text/css" href="style.css">
-	 <meta charset="UTF-8">
+
+  <title>NBA Team Creation</title>
   </head>
   
   <body>
-
-    <div>
-      <h3>Search Solr Below:</h3>
-      <div>
-        Search Text: <input type="text" name="searchText" id="searchText">
-        <input type="button" value="Submit" onclick="sendSearch()">
-      </div>
-      <div>
-        <h3> Results</h3>
-        <div id = "resultsDiv">
+    <h1>NBA Team Creation</h1> 
+    <div class="container"> 
+      <h3>Team</h3> <!-- Editable title for the team -->
+      <div class="grid"> 
+        <div class="grid-container">
+          <!-- This is where the pictures/info will show up-->
+          <div>Point guard</div>
+          <div>Center</div>
+          <div>Shooting guard</div>
+          <div>Power forward</div>
+          <div>Small forward</div>
         </div>
       </div>
+
+      <div class="container">
+        <!-- This is where team results will show up once the team is full-->
+      </div>
+
+      <button type="button">Compare</button>
     </div>
    
     <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)--> 
@@ -59,6 +69,13 @@
 </html>
 
 
-
-
-  
+<!-- <h3>Search Solr Below:</h3>
+        <div>
+          Search Text: <input type="text" name="searchText" id="searchText">
+          <input type="button" value="Submit" onclick="sendSearch()">
+        </div>
+        <div>
+          <h3>Results</h3>
+          <div id = "resultsDiv"> </div>
+        </div>
+      -->
