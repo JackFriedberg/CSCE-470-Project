@@ -2,12 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-shrink-to-fit=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
-
-  <title>NBA Team Creation</title>
+    <title>NBA Team Creation</title>
   </head>
   
   <body>
@@ -15,7 +12,7 @@ shrink-to-fit=no">
     <div class="container"> 
       <div class="container"> 
         <h3>Team</h3> <!-- Editable title for the team -->
-        <div class="grid-container">
+        <div class="grid-container" id = "teamContainer">
           <div><a href="#center" id="player1">  </a></div>
           <div><a href="#pointguard" id = "player2">  </a></div>
           <div><a href="#smallforward" id="player3">  </a></div>
@@ -35,22 +32,10 @@ shrink-to-fit=no">
           <input type="button" value="Submit" onclick="sendSearch()">
         </div>
         <div>
-          <div id = "resultsDiv" style="display: block; float:left">
+          <div id = "resultsDiv">
             <h3>Results</h3> 
           </div>
-          <div id = "savedDiv" style="display: block; float:left">
-            <h3>Saved</h3>
-          </div>
         </div>
-    
-
-
-
-
-
-
-
-      <button type="button">Compare</button>
     </div>
    
     <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)--> 
@@ -73,9 +58,7 @@ shrink-to-fit=no">
       //get the value inside the input box and send it to the backend
       function sendSearch(){
         var searchText = document.getElementById('searchText').value;
-
         var searchString = '*' + searchText + '*~.3';
-        
         socket.emit('search', searchString);
       }
 
@@ -113,36 +96,52 @@ shrink-to-fit=no">
         
         if(player1 == undefined){
           player1 = objectStats;
-          console.log("player 1 is " + player1.name + "!");
+          if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
           refreshTeam();
           return;
         }
         if(player2 == undefined){
           player2 = objectStats;
-          console.log("player 2 is " + player2.name + "!");
+          if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
           refreshTeam();
           return;
         }
         if(player3 == undefined){
           player3 = objectStats;
-          console.log("player 3 is " + player3.name + "!");
+          if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
           refreshTeam();
           return;
         }
         if(player4 == undefined){
           player4 = objectStats;
-          console.log("player 4 is " + player4.name + "!");
+          if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
           refreshTeam();
           return;
         }
         if(player5 == undefined){
           player5 = objectStats;
-          console.log("player 5 is " + player5.name + "!");
+          if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
           refreshTeam();
           return;
         }
 
-        console.log("Team is full!");
+        if(!document.getElementById("errorMessage")){
+          var teamDiv = document.getElementById("teamContainer");
+          var errorMessage = document.createElement("p");
+          errorMessage.innerHTML = "Team is full!";
+          errorMessage.setAttribute('id', "errorMessage");
+          teamDiv.appendChild(errorMessage);
+        }
       }
 
       function deletePlayer(element){
@@ -174,6 +173,10 @@ shrink-to-fit=no">
           playerToDelete.removeChild(playerToDelete.firstChild);
         }
 
+        if(document.getElementById("errorMessage")){
+            document.getElementById("errorMessage").remove();
+          }
+
         refreshTeam();
 
       }
@@ -186,7 +189,7 @@ shrink-to-fit=no">
         var player5Container = document.getElementById("player5");
 
         if(player1 != undefined){
-          player1Container.innerHTML = player1.name;
+          player1Container.innerHTML = "Player 1: " + player1.name;
           player1Container.setAttribute('data-stats', JSON.stringify(player1));
           var addButton = document.createElement("input");
           addButton.setAttribute('type', 'button');
@@ -196,7 +199,7 @@ shrink-to-fit=no">
           player1Container.appendChild(addButton);
         }
         if(player2 != undefined){
-          player2Container.innerHTML = player2.name;
+          player2Container.innerHTML = "Player 2: " + player2.name;
           player2Container.setAttribute('data-stats', JSON.stringify(player2));
           var addButton = document.createElement("input");
           addButton.setAttribute('type', 'button');
@@ -206,7 +209,7 @@ shrink-to-fit=no">
           player2Container.appendChild(addButton);
         }
         if(player3 != undefined){
-          player3Container.innerHTML = player3.name;
+          player3Container.innerHTML = "Player 3: " + player3.name;
           player3Container.setAttribute('data-stats', JSON.stringify(player3));
           var addButton = document.createElement("input");
           addButton.setAttribute('type', 'button');
@@ -216,7 +219,7 @@ shrink-to-fit=no">
           player3Container.appendChild(addButton);
         }
         if(player4 != undefined){
-          player4Container.innerHTML = player4.name;
+          player4Container.innerHTML = "Player 4: " + player4.name;
           player4Container.setAttribute('data-stats', JSON.stringify(player4));
           var addButton = document.createElement("input");
           addButton.setAttribute('type', 'button');
@@ -226,7 +229,7 @@ shrink-to-fit=no">
           player4Container.appendChild(addButton);
         }
         if(player5 != undefined){
-          player5Container.innerHTML = player5.name;
+          player5Container.innerHTML = "Player 5: " + player5.name;
           player5Container.setAttribute('data-stats', JSON.stringify(player5));
           var addButton = document.createElement("input");
           addButton.setAttribute('type', 'button');
