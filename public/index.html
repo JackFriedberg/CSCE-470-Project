@@ -16,19 +16,39 @@ shrink-to-fit=no">
       <div class="container"> 
         <h3>Team</h3> <!-- Editable title for the team -->
         <div class="grid-container">
-          <!-- This is where the pictures/info will show up-->
-          <div><a href="#center"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#pointguard"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#smallforward"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#powerforward"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="shooting guard"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#center" id="player1">  </a></div>
+          <div><a href="#pointguard" id = "player2">  </a></div>
+          <div><a href="#smallforward" id="player3">  </a></div>
+          <div><a href="#powerforward" id="player4"> </a></div>
+          <div><a href="#shootingguard" id="player5">  </a></div>
         </div>
-        <!-- Have names/positions show up nicely aligned under each picture -->
       </div>
 
       <div class="container">
         <!-- This is where team results will show up once the team is full-->
       </div>
+
+      <!--TEsting for search-->
+      <h3>Search Solr Below:</h3>
+        <div>
+          Search Text: <input type="text" name="searchText" id="searchText">
+          <input type="button" value="Submit" onclick="sendSearch()">
+        </div>
+        <div>
+          <div id = "resultsDiv" style="display: block; float:left">
+            <h3>Results</h3> 
+          </div>
+          <div id = "savedDiv" style="display: block; float:left">
+            <h3>Saved</h3>
+          </div>
+        </div>
+    
+
+
+
+
+
+
 
       <button type="button">Compare</button>
     </div>
@@ -38,10 +58,25 @@ shrink-to-fit=no">
       //socket io variable - talks front end to backend 
       var socket = io();
 
+      var player1;
+
+      var player2;
+
+      var player3;
+      
+      var player4;
+
+      var player5;
+
+      var team1 = {player1, player2, player3, player4, player5};
+
       //get the value inside the input box and send it to the backend
       function sendSearch(){
         var searchText = document.getElementById('searchText').value;
-        socket.emit('search', searchText);
+
+        var searchString = '*' + searchText + '*~.3';
+        
+        socket.emit('search', searchString);
       }
 
       //this function runs when backend passes Solr queries to the front end
@@ -58,25 +93,150 @@ shrink-to-fit=no">
         }
         //for each document, make a new <P> element and store the entry id inside. Then append to the results div
         for (i = 0; i < allDocs.length; i++){
-          var responseString = allDocs[i].id;
-          var responseEntry = document.createElement("p");
+          var responseString = allDocs[i].name + ' (' + allDocs[i].season + ')';
+          var responseEntry = document.createElement("div");
           responseEntry.innerHTML = responseString;
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'add');
+          addButton.setAttribute('onclick', 'savePlayer(this)');
+          addButton.setAttribute('data-stats', JSON.stringify(allDocs[i]));
+          responseEntry.appendChild(addButton);
           divToUpdate.appendChild(responseEntry);
         }
       });
 
+
+      function savePlayer(element){
+        playerStats = element.getAttribute('data-stats');
+        var objectStats = JSON.parse(playerStats);
+        
+        if(player1 == undefined){
+          player1 = objectStats;
+          console.log("player 1 is " + player1.name + "!");
+          refreshTeam();
+          return;
+        }
+        if(player2 == undefined){
+          player2 = objectStats;
+          console.log("player 2 is " + player2.name + "!");
+          refreshTeam();
+          return;
+        }
+        if(player3 == undefined){
+          player3 = objectStats;
+          console.log("player 3 is " + player3.name + "!");
+          refreshTeam();
+          return;
+        }
+        if(player4 == undefined){
+          player4 = objectStats;
+          console.log("player 4 is " + player4.name + "!");
+          refreshTeam();
+          return;
+        }
+        if(player5 == undefined){
+          player5 = objectStats;
+          console.log("player 5 is " + player5.name + "!");
+          refreshTeam();
+          return;
+        }
+
+        console.log("Team is full!");
+      }
+
+      function deletePlayer(element){
+        var objectID = element.getAttribute('id');
+        var playerToDelete;
+
+        if(objectID == "player1Button"){
+          player1 = undefined;
+          playerToDelete = document.getElementById("player1");
+        }
+        if(objectID == "player2Button"){
+          player2 = undefined;
+          playerToDelete = document.getElementById("player2");
+        }
+        if(objectID == "player3Button"){
+          player3 = undefined;
+          playerToDelete = document.getElementById("player3");
+        }
+        if(objectID == "player4Button"){
+          player4 = undefined;
+          playerToDelete = document.getElementById("player4");
+        }
+        if(objectID == "player5Button"){
+          player5 = undefined;
+          playerToDelete = document.getElementById("player5");
+        }
+
+        while (playerToDelete.firstChild) {
+          playerToDelete.removeChild(playerToDelete.firstChild);
+        }
+
+        refreshTeam();
+
+      }
+
+      function refreshTeam(){
+        var player1Container = document.getElementById("player1");
+        var player2Container = document.getElementById("player2");
+        var player3Container = document.getElementById("player3");
+        var player4Container = document.getElementById("player4");
+        var player5Container = document.getElementById("player5");
+
+        if(player1 != undefined){
+          player1Container.innerHTML = player1.name;
+          player1Container.setAttribute('data-stats', JSON.stringify(player1));
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'delete');
+          addButton.setAttribute('onclick', 'deletePlayer(this)');
+          addButton.setAttribute('id', 'player1Button');
+          player1Container.appendChild(addButton);
+        }
+        if(player2 != undefined){
+          player2Container.innerHTML = player2.name;
+          player2Container.setAttribute('data-stats', JSON.stringify(player2));
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'delete');
+          addButton.setAttribute('onclick', 'deletePlayer(this)');
+          addButton.setAttribute('id', 'player2Button');
+          player2Container.appendChild(addButton);
+        }
+        if(player3 != undefined){
+          player3Container.innerHTML = player3.name;
+          player3Container.setAttribute('data-stats', JSON.stringify(player3));
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'delete');
+          addButton.setAttribute('onclick', 'deletePlayer(this)');
+          addButton.setAttribute('id', 'player3Button');
+          player3Container.appendChild(addButton);
+        }
+        if(player4 != undefined){
+          player4Container.innerHTML = player4.name;
+          player4Container.setAttribute('data-stats', JSON.stringify(player4));
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'delete');
+          addButton.setAttribute('onclick', 'deletePlayer(this)');
+          addButton.setAttribute('id', 'player4Button');
+          player4Container.appendChild(addButton);
+        }
+        if(player5 != undefined){
+          player5Container.innerHTML = player5.name;
+          player5Container.setAttribute('data-stats', JSON.stringify(player5));
+          var addButton = document.createElement("input");
+          addButton.setAttribute('type', 'button');
+          addButton.setAttribute('value', 'delete');
+          addButton.setAttribute('onclick', 'deletePlayer(this)');
+          addButton.setAttribute('id', 'player5Button');
+          player5Container.appendChild(addButton);
+        }
+      }
+
     </script>
   </body>
 </html>
-
-
-<!-- <h3>Search Solr Below:</h3>
-        <div>
-          Search Text: <input type="text" name="searchText" id="searchText">
-          <input type="button" value="Submit" onclick="sendSearch()">
-        </div>
-        <div>
-          <h3>Results</h3>
-          <div id = "resultsDiv"> </div>
-        </div>
-      -->

@@ -34,8 +34,17 @@ async function makeWebpage(){
 async function searchSolr(searchText){
 
     //console.log("Searching for: " + searchText)
-    var strQuery = solrClient.query().q(searchText);
-    solrClient.search(strQuery, function (err, result) {
+    var objQuery = solrClient.query()
+        .q({name: searchText})
+        .addParams({
+            wt: 'json'
+        })
+        .start(0)
+        .rows(100000)
+    ;
+
+
+    solrClient.search(objQuery, function (err, result) {
         if (err) {
            console.log(err);
            return;
