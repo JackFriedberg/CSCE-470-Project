@@ -17,17 +17,30 @@ shrink-to-fit=no">
         <h3>Team</h3> <!-- Editable title for the team -->
         <div class="grid-container">
           <!-- This is where the pictures/info will show up-->
-          <div><a href="#center"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#pointguard"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#smallforward"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="#powerforward"> <img border="0" alt="" src="default-player.png"> </a></div>
-          <div><a href="shooting guard"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#center" class="player"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#pointguard" class="player"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#smallforward" class="player"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#powerforward" class="player"> <img border="0" alt="" src="default-player.png"> </a></div>
+          <div><a href="#shootingguard" class="player"> <img border="0" alt="" src="default-player.png"> </a></div>
         </div>
         <!-- Have names/positions show up nicely aligned under each picture -->
       </div>
 
+      <div id="center" class="overlay">
+        <div class="popup">
+          <h2>pop this pussy</h2>
+          <a class="close" href="#">&times;</a>
+          <div class="content">
+              Search Text: <input type="text" name="searchText" id="searchText">
+              <input type="button" value="Submit" onclick="sendSearch()">
+              <div id = "resultsDiv"> </div>
+          </div>
+        </div>
+      </div>
+
       <div class="container">
-        <!-- This is where team results will show up once the team is full-->
+        <!-- Once a player is selected, their info shows up here -->
+        <div id ="playerResults"></div>
       </div>
 
       <button type="button">Compare</button>
@@ -41,6 +54,7 @@ shrink-to-fit=no">
       //get the value inside the input box and send it to the backend
       function sendSearch(){
         var searchText = document.getElementById('searchText').value;
+        //alert(searchText);
         socket.emit('search', searchText);
       }
 
@@ -58,9 +72,14 @@ shrink-to-fit=no">
         }
         //for each document, make a new <P> element and store the entry id inside. Then append to the results div
         for (i = 0; i < allDocs.length; i++){
+          divToUpdate.appendChild(document.createElement('p'));
           var responseString = allDocs[i].id;
-          var responseEntry = document.createElement("p");
+          var responseEntry = document.createElement('a');
           responseEntry.innerHTML = responseString;
+          responseEntry.title = 'Player';
+          responseEntry.href = '#'; 
+          responseEntry.result = responseString;
+          responseEntry.onclick = 'return queryFunc(responseString);';
           divToUpdate.appendChild(responseEntry);
         }
       });
