@@ -45,7 +45,6 @@
       //socket io variable - talks front end to backend 
       var socket = io();
       var playerAddModal = document.getElementById('playerAddModal');
-      var span = document.getElementsByClassName("close")[0];
       var slotSelected = undefined;
       var team1Size = 0;
 
@@ -53,9 +52,6 @@
         playerAddModal.style.display = "block";
         slotSelected = element.parentElement.id;
       }
-
-
-      // When the user clicks on <span> (x), close the modal
 
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
@@ -81,8 +77,6 @@
       searchText.addEventListener('keyup', debounce(() => {
         sendSearch();
       }, 500))
-
-
 
       //get the value inside the input box and send it to the backend
       function sendSearch(){
@@ -193,7 +187,6 @@
         }
         
         //calculate individual stats for players
-
       }
     </script>
   </body>
