@@ -8,58 +8,104 @@
   </head>
   
   <body>
-    <h1>NBA Team Creation</h1> 
-    <div class="container"> 
-      <div class="container"> 
-        <h3>Team</h3> <!-- Editable title for the team -->
-        <div class="grid-container" id = "teamContainer">
-          <div><a href="#center" id="player1">  </a></div>
-          <div><a href="#pointguard" id = "player2">  </a></div>
-          <div><a href="#smallforward" id="player3">  </a></div>
-          <div><a href="#powerforward" id="player4"> </a></div>
-          <div><a href="#shootingguard" id="player5">  </a></div>
+    <div class = contentContainer> 
+      <h1>NBA Team Creator</h1> 
+      <div id="team1Container"> 
+        <h2 contenteditable="true">Team Name</h3> <!-- Editable title for the team -->
+          <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          <div class="playerBox tooltip" id="player5"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+      </div>
+
+      <div id="team1StatContainer">
+        <h2 id="team1InfoTitle"> Team Information - Complete your team to see how it would perform!</h2>
+        <div id="team1Info">
+          <h3 id="team1Wins"> Projected Wins Per Season: </h3>
+          <h3 id="team1Points"> Projected Points Per Game: </h3>
+        </div>
+        <h2> Individual Player Performances </h2>
+        <div id="newTeam1PlayerStats">
         </div>
       </div>
 
-      <div class="container">
-        <!-- This is where team results will show up once the team is full-->
+      <div id="playerAddModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="modalCloser" onclick="closeModal()">&times;</span>
+          <h3>Search for a Player</h3>
+          <input type="text" name="searchText" id="searchText">
+          <div id = "resultsDiv"></div>
+        </div>
       </div>
-
-      <!--TEsting for search-->
-      <h3>Search Solr Below:</h3>
-        <div>
-          Search Text: <input type="text" name="searchText" id="searchText">
-          <input type="button" value="Submit" onclick="sendSearch()">
-        </div>
-        <div>
-          <div id = "resultsDiv">
-            <h3>Results</h3> 
-          </div>
-        </div>
     </div>
    
     <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)--> 
     <script>
       //socket io variable - talks front end to backend 
       var socket = io();
+      var playerAddModal = document.getElementById('playerAddModal');
+      var span = document.getElementsByClassName("close")[0];
+      var slotSelected = undefined;
+      var team1Size = 0;
 
-      var player1;
+      function openModal(element){
+        playerAddModal.style.display = "block";
+        slotSelected = element.parentElement.id;
+      }
 
-      var player2;
 
-      var player3;
-      
-      var player4;
+      // When the user clicks on <span> (x), close the modal
 
-      var player5;
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == playerAddModal) {
+          closeModal();
+        }
+      }
 
-      var team1 = {player1, player2, player3, player4, player5};
+      function closeModal(){
+        playerAddModal.style.display = "none";
+        clearSearchBox();
+        clearSearchResults();
+      }
+
+      function debounce(fn, duration) {
+        var timer;
+        return function(){
+          clearTimeout(timer);
+          timer = setTimeout(fn, duration);
+        }
+      }
+
+      searchText.addEventListener('keyup', debounce(() => {
+        sendSearch();
+      }, 500))
+
+
 
       //get the value inside the input box and send it to the backend
       function sendSearch(){
         var searchText = document.getElementById('searchText').value;
-        var searchString = '*' + searchText + '*~.3';
-        socket.emit('search', searchString);
+        if(searchText.replace(/\s/g, '').length > 1){
+          var searchString = '*' + searchText + '*';
+          socket.emit('search', searchString);  
+        }
+        else{
+          clearSearchResults();
+        }
+      }
+
+      function clearSearchResults(){
+        var divToUpdate = document.getElementById("resultsDiv");
+        //delete all prior results
+        while (divToUpdate.firstChild) {
+          divToUpdate.removeChild(divToUpdate.firstChild);
+        }
+      }
+
+      function clearSearchBox(){
+        document.getElementById('searchText').value = '';
       }
 
       //this function runs when backend passes Solr queries to the front end
@@ -71,9 +117,7 @@
         //get the div to be updated with results
         var divToUpdate = document.getElementById("resultsDiv");
         //delete all prior results
-        while (divToUpdate.firstChild) {
-          divToUpdate.removeChild(divToUpdate.firstChild);
-        }
+        clearSearchResults();
         //for each document, make a new <P> element and store the entry id inside. Then append to the results div
         for (i = 0; i < allDocs.length; i++){
           var responseString = allDocs[i].name + ' (' + allDocs[i].season + ')';
@@ -89,157 +133,68 @@
         }
       });
 
-
       function savePlayer(element){
-        playerStats = element.getAttribute('data-stats');
-        var objectStats = JSON.parse(playerStats);
-        
-        if(player1 == undefined){
-          player1 = objectStats;
-          if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-          refreshTeam();
-          return;
-        }
-        if(player2 == undefined){
-          player2 = objectStats;
-          if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-          refreshTeam();
-          return;
-        }
-        if(player3 == undefined){
-          player3 = objectStats;
-          if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-          refreshTeam();
-          return;
-        }
-        if(player4 == undefined){
-          player4 = objectStats;
-          if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-          refreshTeam();
-          return;
-        }
-        if(player5 == undefined){
-          player5 = objectStats;
-          if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-          refreshTeam();
-          return;
-        }
+        var playerStats = element.getAttribute('data-stats');
+        var currPlayer = JSON.parse(playerStats);
+        var playerSlot = document.getElementById(slotSelected);
+        playerSlot.removeChild(playerSlot.firstChild);
+        closeModal();
 
-        if(!document.getElementById("errorMessage")){
-          var teamDiv = document.getElementById("teamContainer");
-          var errorMessage = document.createElement("p");
-          errorMessage.innerHTML = "Team is full!";
-          errorMessage.setAttribute('id', "errorMessage");
-          teamDiv.appendChild(errorMessage);
-        }
+        var playerName = document.createElement("p");
+        playerName.innerHTML = currPlayer.name;
+        playerName.setAttribute('class', 'playerName');
+        playerName.setAttribute('data-stats', playerStats);
+
+        var addButton = document.createElement("span");
+        addButton.setAttribute('class', 'close');
+        addButton.setAttribute('onclick', 'deletePlayer(this)');
+        addButton.innerHTML = "&times;";
+            
+        var tooltipElement = document.createElement("span");
+        tooltipElement.setAttribute('class', 'tooltiptext');
+        tooltipText = 'Points/G: '+ currPlayer.pts_per_g + '\n' +
+                      'Assists/G: '+ currPlayer.ast_per_g + '\n' +
+                      'Rebounds/G: '+ currPlayer.trb_per_g + '\n';
+        tooltipElement.innerHTML = tooltipText;            
+            
+        playerSlot.appendChild(addButton);
+        playerSlot.appendChild(playerName);
+        playerSlot.appendChild(tooltipElement);
+
+        team1Size = team1Size + 1;
+        updateTeamStats();
       }
 
       function deletePlayer(element){
-        var objectID = element.getAttribute('id');
-        var playerToDelete;
-
-        if(objectID == "player1Button"){
-          player1 = undefined;
-          playerToDelete = document.getElementById("player1");
-        }
-        if(objectID == "player2Button"){
-          player2 = undefined;
-          playerToDelete = document.getElementById("player2");
-        }
-        if(objectID == "player3Button"){
-          player3 = undefined;
-          playerToDelete = document.getElementById("player3");
-        }
-        if(objectID == "player4Button"){
-          player4 = undefined;
-          playerToDelete = document.getElementById("player4");
-        }
-        if(objectID == "player5Button"){
-          player5 = undefined;
-          playerToDelete = document.getElementById("player5");
+        var parElement = element.parentElement;
+        while (parElement.firstChild) {
+          parElement.removeChild(parElement.firstChild);
         }
 
-        while (playerToDelete.firstChild) {
-          playerToDelete.removeChild(playerToDelete.firstChild);
-        }
+        var addButton = document.createElement("button");
+        addButton.innerHTML = '&#43;';
+        addButton.setAttribute('class', 'playerAdd');
+        addButton.setAttribute('onclick', 'openModal(this)');
+        parElement.appendChild(addButton);
 
-        if(document.getElementById("errorMessage")){
-            document.getElementById("errorMessage").remove();
-          }
-
-        refreshTeam();
-
+        team1Size = team1Size - 1;
+        updateTeamStats();
       }
 
-      function refreshTeam(){
-        var player1Container = document.getElementById("player1");
-        var player2Container = document.getElementById("player2");
-        var player3Container = document.getElementById("player3");
-        var player4Container = document.getElementById("player4");
-        var player5Container = document.getElementById("player5");
+      //called when player added/removed. Calculates wins/season and player stats on team
+      function updateTeamStats() {
+        if(team1Size == 5){
+          //calculate wins/season
+          team1Wins = 82;
+          //calculate ppg
+          team1Points = 150;
+          document.getElementById('team1Wins').innerHTML = 'Projected Wins Per Season: ' + team1Wins;
+          document.getElementById('team1Points').innerHTML = 'Projected Points Per Game: ' + team1Points;
+        }
+        
+        //calculate individual stats for players
 
-        if(player1 != undefined){
-          player1Container.innerHTML = "Player 1: " + player1.name;
-          player1Container.setAttribute('data-stats', JSON.stringify(player1));
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'delete');
-          addButton.setAttribute('onclick', 'deletePlayer(this)');
-          addButton.setAttribute('id', 'player1Button');
-          player1Container.appendChild(addButton);
-        }
-        if(player2 != undefined){
-          player2Container.innerHTML = "Player 2: " + player2.name;
-          player2Container.setAttribute('data-stats', JSON.stringify(player2));
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'delete');
-          addButton.setAttribute('onclick', 'deletePlayer(this)');
-          addButton.setAttribute('id', 'player2Button');
-          player2Container.appendChild(addButton);
-        }
-        if(player3 != undefined){
-          player3Container.innerHTML = "Player 3: " + player3.name;
-          player3Container.setAttribute('data-stats', JSON.stringify(player3));
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'delete');
-          addButton.setAttribute('onclick', 'deletePlayer(this)');
-          addButton.setAttribute('id', 'player3Button');
-          player3Container.appendChild(addButton);
-        }
-        if(player4 != undefined){
-          player4Container.innerHTML = "Player 4: " + player4.name;
-          player4Container.setAttribute('data-stats', JSON.stringify(player4));
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'delete');
-          addButton.setAttribute('onclick', 'deletePlayer(this)');
-          addButton.setAttribute('id', 'player4Button');
-          player4Container.appendChild(addButton);
-        }
-        if(player5 != undefined){
-          player5Container.innerHTML = "Player 5: " + player5.name;
-          player5Container.setAttribute('data-stats', JSON.stringify(player5));
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'delete');
-          addButton.setAttribute('onclick', 'deletePlayer(this)');
-          addButton.setAttribute('id', 'player5Button');
-          player5Container.appendChild(addButton);
-        }
       }
-
     </script>
   </body>
 </html>
