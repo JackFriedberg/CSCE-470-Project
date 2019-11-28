@@ -40,7 +40,8 @@ async function searchSolr(searchText){
             wt: 'json'
         })
         .start(0)
-        .rows(100000)
+        .rows(50)
+        .sort('vorp asc')
     ;
 
 

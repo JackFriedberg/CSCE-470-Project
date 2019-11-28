@@ -91,3 +91,12 @@ overflow-y: auto;
 .contentContainer {
   margin: 20px;;
 }
+
+.newPlayerStats{
+  height: 300px;
+  width: 250px;
+  float: left;
+  display: block;
+  margin-right: 10px;
+  text-align: center;
+}
