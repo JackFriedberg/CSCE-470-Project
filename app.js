@@ -33,7 +33,7 @@ async function makeWebpage(){
 
 async function searchSolr(searchText){
 
-    //console.log("Searching for: " + searchText)
+    console.log("Searching for: " + searchText)
     var objQuery = solrClient.query()
         .q({name: searchText})
         .addParams({

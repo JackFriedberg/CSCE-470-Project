@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="style.css">
+
     <title>NBA Team Creation</title>
   </head>
   
@@ -12,15 +14,18 @@
       <h1>NBA Team Creator</h1> 
       <div id="team1Container"> 
         <h2 contenteditable="true">Team Name</h3> <!-- Editable title for the team -->
-          <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-          <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-          <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-          <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-          <div class="playerBox tooltip" id="player5"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          <div class="team">
+            <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+            <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+            <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+            <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+            <div class="playerBox tooltip" id="player5"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+          </div>
       </div>
 
+      
+      <h3 id="team1InfoTitle"> Team Information - Complete your team to see how it would perform!</h2>
       <div id="team1StatContainer">
-        <h2 id="team1InfoTitle"> Team Information - Complete your team to see how it would perform!</h2>
         <div id="team1Info">
           <h3 id="team1Wins"> Projected Wins Per Season: </h3>
           <h3 id="team1Points"> Projected Points Per Game: </h3>
@@ -34,7 +39,7 @@
         <div class="modal-content">
           <span class="close" id="modalCloser" onclick="closeModal()">&times;</span>
           <h3>Search for a Player</h3>
-          <input type="text" name="searchText" id="searchText">
+          <input type="text" name="searchText" id="searchText" value="Search">
           <div id = "resultsDiv"></div>
         </div>
       </div>
@@ -53,6 +58,7 @@
       //get the value inside the input box and send it to the backend
       function sendSearch(){
         var searchText = document.getElementById('searchText').value;
+        console.log(searchText);
         if(searchText.replace(/\s/g, '').length > 1){
           var searchString = '*' + searchText + '*';
           socket.emit('search', searchString);  
@@ -65,7 +71,7 @@
       //this function runs when backend passes Solr queries to the front end
       socket.on('sendResults', function(results){
         //output search results in the console
-        console.log(results.response);
+        console.log("response: ", results.response);
         //get the documents returned
         allDocs = results.response.docs;
         //get the div to be updated with results
