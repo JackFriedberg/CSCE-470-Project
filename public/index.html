@@ -1,347 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css?family=Bungee&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
 
-    <title>NBA Team Creation</title>
-  </head>
-  
-  <body>
-    <div class = contentContainer> 
-      <h1>NBA Team Creator</h1> 
-      <div id="team1Container"> 
-        <h2 contenteditable="true">Team Name</h3> <!-- Editable title for the team -->
-          <div class="team">
-            <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</input></div>
-            <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-            <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-            <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
-            <div class="playerBox tooltip" id="player5"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bungee&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>NBA Team Creation</title>
+</head>
+
+<body>
+  <div class=contentContainer>
+    <h1>NBA Team Creator</h1>
+    <div id="team1Container">
+      <h2 contenteditable="true">Team Name</h3> <!-- Editable title for the team -->
+        <div class="team">
+          <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</input>
           </div>
-      </div>
+          <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button>
+          </div>
+          <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button>
+          </div>
+          <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button>
+          </div>
+          <div class="playerBox tooltip" id="player5"><button class="playerAdd" onclick="openModal(this)">&#43;</button>
+          </div>
+        </div>
+    </div>
 
-      <!-- 
-      <div class="playerNames">
-          <label for="player1">test2</label>
-          <label for="player2">test2</label>
-          <label for="player3">test2</label>
-          <label for="player4">test2</label>
-          <label for="player5">test2</label>
-      </div>
-      -->
-      
-      <h3 id="team1InfoTitle"> Team Information - Complete your team to see how it would perform!</h2>
-      <div id="team1StatContainer">
-        <div id="team1Info">
-          <h3 id="team1Wins"> Projected Wins Per Season: </h3>
-          <h3 id="team1Points"> Projected Points Per Game: </h3>
-        </div>
-        <div id="player1Info">
-        </div>
-        <div id="player2Info">
-        </div>
-        <div id="player3Info">
-        </div>
-      </div>
+    <div class="playerNames" id="playerNames">
+    </div>
 
-      <div id="playerAddModal" class="modal">
-        <div class="modal-content">
-          <span class="close" id="modalCloser" onclick="closeModal()">&times;</span>
-          <h3>Search for a Player</h3>
-          <input type="text" name="searchText" id="searchText" value="Search">
-          <div id = "resultsDiv"></div>
+    <div id="team1StatContainer">
+      <div id="newTeam1PlayerStats">
+        <div style="
+          border: 1px solid #DCDCDC;
+          box-shadow: 6px 6px 1px 0px #EBEBEB;
+          padding-right: .2em;
+          padding-left: .7em;
+          padding-bottom: .6em;
+          padding-top: .6em;
+          text-align: center;
+          display: inline-block;
+          width: 210px;
+          margin-right: 20px ;
+          ">
+          <img src="https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg" style="
+              height: 150px;
+              width: 100px;
+              margin: auto;
+              display:inline-block;
+              border: 1px solid gray;
+              ">
+          <h3 style="
+              font-size: 1vw;
+              height: 40px;
+              ">Lebron James </h3>
+          <div style="
+              ">
+            <p style="margin: 2px;"><span style="font-weight: bold;">Points</span>: 27.4 <span
+                style="font-weight: bold;">&rArr;</span> 26.1</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Assists</span>: 5.7 <span
+                style="font-weight: bold;">&rArr;</span> 4.6</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Rebounds</span>: 9.3 <span
+                style="font-weight: bold;">&rArr;</span> 8.5</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Usage Rate</span>: 42.3 <span
+                style="font-weight: bold;">&rArr;</span> 41.1</p>
+          </div>
         </div>
+
+        <div style="
+          border: 1px solid #DCDCDC;
+          box-shadow: 6px 6px 1px 0px #EBEBEB;
+          padding-right: .2em;
+          padding-left: .7em;
+          padding-bottom: .6em;
+          padding-top: .6em;
+          text-align: center;
+          display: inline-block;
+          width: 210px;
+          margin-right: 20px ;
+          ">
+          <img src="https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg" style="
+              height: 150px;
+              width: 100px;
+              margin: auto;
+              display:inline-block;
+              border: 1px solid gray;
+              ">
+          <h3 style="
+              font-size: 1vw;
+              height: 40px;
+              ">Lebron James </h3>
+          <div style="
+              ">
+            <p style="margin: 2px;"><span style="font-weight: bold;">Points</span>: 27.4 <span
+                style="font-weight: bold;">&rArr;</span> 26.1</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Assists</span>: 5.7 <span
+                style="font-weight: bold;">&rArr;</span> 4.6</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Rebounds</span>: 9.3 <span
+                style="font-weight: bold;">&rArr;</span> 8.5</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Usage Rate</span>: 42.3 <span
+                style="font-weight: bold;">&rArr;</span> 41.1</p>
+          </div>
+        </div>
+
+        <div style="
+          border: 1px solid #DCDCDC;
+          box-shadow: 6px 6px 1px 0px #EBEBEB;
+          padding-right: .2em;
+          padding-left: .7em;
+          padding-bottom: .6em;
+          padding-top: .6em;
+          text-align: center;
+          display: inline-block;
+          width: 210px;
+          margin-right: 20px ;
+          ">
+          <img src="https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg" style="
+              height: 150px;
+              width: 100px;
+              margin: auto;
+              display:inline-block;
+              border: 1px solid gray;
+              ">
+          <h3 style="
+              font-size: 1vw;
+              height: 40px;
+              ">Lebron James </h3>
+          <div style="
+              ">
+            <p style="margin: 2px;"><span style="font-weight: bold;">Points</span>: 27.4 <span
+                style="font-weight: bold;">&rArr;</span> 26.1</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Assists</span>: 5.7 <span
+                style="font-weight: bold;">&rArr;</span> 4.6</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Rebounds</span>: 9.3 <span
+                style="font-weight: bold;">&rArr;</span> 8.5</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Usage Rate</span>: 42.3 <span
+                style="font-weight: bold;">&rArr;</span> 41.1</p>
+          </div>
+        </div>
+
+        <div style="
+          border: 1px solid #DCDCDC;
+          box-shadow: 6px 6px 1px 0px #EBEBEB;
+          padding-right: .2em;
+          padding-left: .7em;
+          padding-bottom: .6em;
+          padding-top: .6em;
+          text-align: center;
+          display: inline-block;
+          width: 210px;
+          margin-right: 20px ;
+          ">
+          <img src="https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg" style="
+              height: 150px;
+              width: 100px;
+              margin: auto;
+              display:inline-block;
+              border: 1px solid gray;
+              ">
+          <h3 style="
+              font-size: 1vw;
+              height: 40px;
+              ">Lebron James </h3>
+          <div style="
+              ">
+            <p style="margin: 2px;"><span style="font-weight: bold;">Points</span>: 27.4 <span
+                style="font-weight: bold;">&rArr;</span> 26.1</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Assists</span>: 5.7 <span
+                style="font-weight: bold;">&rArr;</span> 4.6</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Rebounds</span>: 9.3 <span
+                style="font-weight: bold;">&rArr;</span> 8.5</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Usage Rate</span>: 42.3 <span
+                style="font-weight: bold;">&rArr;</span> 41.1</p>
+          </div>
+        </div>
+
+        <div style="
+          border: 1px solid #DCDCDC;
+          box-shadow: 6px 6px 1px 0px #EBEBEB;
+          padding-right: .2em;
+          padding-left: .7em;
+          padding-bottom: .6em;
+          padding-top: .6em;
+          text-align: center;
+          display: inline-block;
+          width: 210px;
+          margin-right: 20px;
+          ">
+          <img src="https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg" style="
+              height: 150px;
+              width: 100px;
+              margin: auto;
+              display:inline-block;
+              border: 1px solid gray;
+              ">
+          <h3 style="font-size: 1vw; height: 40px;">Kareem Abdul-Jabar</h3>
+          <div>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Points</span>: 27.4 <span
+                style="font-weight: bold;">&rArr;</span> 26.1</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Assists</span>: 5.7 <span
+                style="font-weight: bold;">&rArr;</span> 4.6</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Rebounds</span>: 9.3 <span
+                style="font-weight: bold;">&rArr;</span> 8.5</p>
+            <p style="margin: 2px;"><span style="font-weight: bold;">Usage Rate</span>: 42.3 <span
+                style="font-weight: bold;">&rArr;</span> 41.1</p>
+          </div>
+
+        </div>
+
+
       </div>
     </div>
-   
-    <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)--> 
-    <script>
-      //socket io variable - talks front end to backend 
-      var socket = io();
-      var playerAddModal = document.getElementById('playerAddModal');
-      var slotSelected = undefined; //keeps track of last-clicked player slot
-      var team1Size = 0; //keeps track of how mnay players are currently selected
 
-      
+    <div id="team1Info" style="
+          background-color: red;
+          ">
+      <div id="team1Wins" style="width: 50%; float: left; display: inline;"> Projected Wins Per Season: </div>
+      <div id="team1Points" style="width: 50%; float: left; display: inline;"> Projected Points Per Game: </div>
+    </div>
 
-      //get the value inside the input box and send it to the backend
-      function sendSearch(){
-        var searchText = document.getElementById('searchText').value;
-        console.log(searchText);
-        if(searchText.replace(/\s/g, '').length > 1){
-          var searchString = '*' + searchText + '*';
-          socket.emit('search', searchString);  
+
+    <div id="playerAddModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="modalCloser" onclick="closeModal()">&times;</span>
+        <h2>Search for a Player</h2>
+        <input type="text" name="searchText" id="searchText" placeholder="Lebron James">
+        <div id="resultsDiv"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script> <!-- Script for Socket IO API (FIXME when hosting somewhere new)-->
+  <script>
+    //socket io variable - talks front end to backend 
+    var socket = io();
+    var playerAddModal = document.getElementById('playerAddModal');
+    var slotSelected = undefined; //keeps track of last-clicked player slot
+    var team1Size = 0; //keeps track of how mnay players are currently selected
+
+
+
+    //get the value inside the input box and send it to the backend
+    function sendSearch() {
+      var searchText = document.getElementById('searchText').value;
+      console.log(searchText);
+      if (searchText.replace(/\s/g, '').length > 1) {
+        var searchString = '*' + searchText + '*';
+        socket.emit('search', searchString);
+      }
+      else {
+        clearSearchResults();
+      }
+    }
+
+    //this function runs when backend passes Solr queries to the front end
+    socket.on('sendResults', function (results) {
+      //output search results in the console
+      console.log("response: ", results.response);
+      //get the documents returned
+      allDocs = results.response.docs;
+      //get the div to be updated with results
+      var divToUpdate = document.getElementById("resultsDiv");
+      //delete all prior results
+      clearSearchResults();
+      //for each document, make a new <P> element and store the entry id inside. Then append to the results div
+      for (i = 0; i < allDocs.length; i++) {
+        var responseString = allDocs[i].name + ' (' + allDocs[i].season + ')';
+        var addButton = document.createElement("input");
+        addButton.setAttribute('type', 'button');
+        addButton.setAttribute('value', responseString);
+        addButton.setAttribute('onclick', 'savePlayer(this)');
+        addButton.setAttribute('data-stats', JSON.stringify(allDocs[i]));
+        addButton.setAttribute('class', 'resultButton');
+        divToUpdate.appendChild(addButton);
+      }
+    });
+
+
+    //saves player from modal into the team
+    function savePlayer(element) {
+      var playerStats = element.getAttribute('data-stats');       //get the players info from the html element that was in the modal
+      var currPlayer = JSON.parse(playerStats);                   //parse the stats into a JSON object
+      var playerSlot = document.getElementById(slotSelected);     //get the slot that the player should go in
+      playerSlot.removeChild(playerSlot.firstChild);              //remove the button in that slot
+      closeModal();
+
+      // Add the players name below the portrait
+      var playerDiv = document.getElementById('playerNames')
+      var playerName = document.createElement("label");
+      playerName.innerHTML = currPlayer.name;
+      playerName.setAttribute('for', slotSelected);
+      playerName.setAttribute('data-stats', playerStats);
+      playerName.setAttribute('id', slotSelected + 'Name');
+      playerDiv.appendChild(playerName);
+
+      //create a button that removes the player
+      var addButton = document.createElement("span");
+      addButton.setAttribute('class', 'close');
+      addButton.setAttribute('onclick', 'deletePlayer(this)');
+      var bg = "images/" + currPlayer.name.replace(/\s/g, '') + ".png";
+      var styleVal = "background:url(" + bg + ")";
+      addButton.setAttribute('style', styleVal);
+      addButton.innerHTML = "&times;";
+
+      //creates the modal that shows up if you hover over the player
+      var tooltipElement = document.createElement("span");
+      tooltipElement.setAttribute('class', 'tooltiptext');
+      tooltipText = 'Points/G: ' + currPlayer.pts_per_g + '\n' +
+        'Assists/G: ' + currPlayer.ast_per_g + '\n' +
+        'Rebounds/G: ' + currPlayer.trb_per_g + '\n';
+      tooltipElement.innerHTML = tooltipText;
+
+      //append all the new stuff to the player slot div
+      playerSlot.appendChild(addButton);
+      //playerSlot.appendChild(playerName);
+      playerSlot.appendChild(tooltipElement);
+
+      //increase the team size
+      team1Size = team1Size + 1;
+      //update the team stats
+      updateTeamStats();
+    }
+
+    //removes a player from the team. Called from the X button on a player slot
+    function deletePlayer(element) {
+      //delete all the elements in the slot
+      var parElement = element.parentElement;
+      while (parElement.firstChild) {
+        parElement.removeChild(parElement.firstChild);
+      }
+
+      // add back a button to the slot so we can add another player if we want 
+      var addButton = document.createElement("button");
+      addButton.innerHTML = '&#43;';
+      addButton.setAttribute('class', 'playerAdd');
+      addButton.setAttribute('onclick', 'openModal(this)');
+      parElement.appendChild(addButton);
+
+      //decrease the team size
+      team1Size = team1Size - 1;
+      //update the team stats
+      updateTeamStats();
+    }
+
+    //called when player added/removed. Calculates wins/season and player stats on team
+    function updateTeamStats() {
+
+      var team1OldStats = {};
+      var teamTotalUsg = 0;
+      var team1Names = {};
+
+      var team1OldUsg = {};
+      var team1OldPPG = {};
+      var team1OldAPG = {};
+      var team1OldRPG = {};
+      var team1OldWS = {};
+
+      var team1NewUsg = {};
+      var team1NewPPG = {};
+      var team1NewAPG = {};
+      var team1NewRPG = {};
+      var team1NewWS = {};
+
+      //get a players old stats
+      for (i = 1; i < 6; i++) {
+        if (document.getElementById('player' + i + 'Name')) { //means there's a player in this slot
+          var playerStats = document.getElementById('player' + i + 'Name')
+          team1OldStats[i - 1] = JSON.parse(playerStats.getAttribute('data-Stats'));
+          team1OldWS[i - 1] = team1OldStats[i - 1].ws_per_48;
+          team1OldUsg[i - 1] = team1OldStats[i - 1].usg_pct;
+          if (team1OldUsg[i - 1] == 0) {
+            team1OldUsg[i - 1] = .1;
+          }
+          team1OldPPG[i - 1] = team1OldStats[i - 1].pts_per_g;
+          team1OldAPG[i - 1] = team1OldStats[i - 1].ast_per_g[0];
+          team1OldRPG[i - 1] = team1OldStats[i - 1].trb_per_g;
+          team1Names[i - 1] = team1OldStats[i - 1].name;
         }
-        else{
-          clearSearchResults();
+        else {
+          team1OldStats[i - 1] = undefined;
+          team1OldWS[i - 1] = 0;
+          team1OldUsg[i - 1] = 0;
+        }
+        teamTotalUsg = teamTotalUsg + team1OldUsg[i - 1];
+      }
+
+      //calculate a player's new stats
+      for (i = 0; i < 5; i++) {
+        team1NewUsg[i] = round(team1OldUsg[i] / teamTotalUsg * 100, 1);
+        team1NewPPG[i] = round(team1OldPPG[i] * team1NewUsg[i] / team1OldUsg[i], 1);
+        team1NewAPG[i] = round(team1OldAPG[i] * team1NewUsg[i] / team1OldUsg[i], 1);
+        team1NewRPG[i] = round(team1OldRPG[i] * team1NewUsg[i] / team1OldUsg[i], 1);
+        team1NewWS[i] = round(team1OldWS[i] * team1NewUsg[i] / team1OldUsg[i], 1);
+      }
+
+      //get ready to display the new stats
+      var newStatDiv = document.getElementById('newTeam1PlayerStats');
+      //delete old insatnces of "updated" stats
+      while (newStatDiv.firstChild) {
+        newStatDiv.removeChild(newStatDiv.firstChild);
+      }
+
+      //iterate through players that are defined
+      for (i = 0; i < 5; i++) {
+        if (team1OldStats[i] != undefined) {
+          var newPlayerStats = document.createElement("div");
+          newPlayerStats.setAttribute('class', 'newPlayerStats');
+
+          //create text items for each attribute
+          var playerNameText = document.createElement("h4");
+          var playerPointsText = document.createElement("h4");
+          var playerAssistsText = document.createElement("h4");
+          var playerReboundsText = document.createElement("h4");
+          var playerUsageText = document.createElement("h4");
+
+          //get values for new stats
+          playerNameText.innerHTML = team1Names[i];
+          playerPointsText.innerHTML = 'Points Per Game: ' + team1OldPPG[i] + ' -> ' + team1NewPPG[i];
+          playerAssistsText.innerHTML = 'Assists Per Game: ' + team1OldAPG[i] + ' -> ' + team1NewAPG[i];
+          playerReboundsText.innerHTML = 'Rebounds Per Game: ' + team1OldRPG[i] + ' -> ' + team1NewRPG[i];
+          playerUsageText.innerHTML = 'Usage Rate: ' + team1OldUsg[i] + ' -> ' + team1NewUsg[i];
+
+          //append new stats to the player's stat div
+          newPlayerStats.appendChild(playerNameText);
+          newPlayerStats.appendChild(playerPointsText);
+          newPlayerStats.appendChild(playerAssistsText);
+          newPlayerStats.appendChild(playerReboundsText);
+          newPlayerStats.appendChild(playerUsageText);
+
+          //append the new stats div to the team stats div
+          newStatDiv.appendChild(newPlayerStats);
         }
       }
 
-      //this function runs when backend passes Solr queries to the front end
-      socket.on('sendResults', function(results){
-        //output search results in the console
-        console.log("response: ", results.response);
-        //get the documents returned
-        allDocs = results.response.docs;
-        //get the div to be updated with results
-        var divToUpdate = document.getElementById("resultsDiv");
-        //delete all prior results
-        clearSearchResults();
-        //for each document, make a new <P> element and store the entry id inside. Then append to the results div
-        for (i = 0; i < allDocs.length; i++){
-          var responseString = allDocs[i].name + ' (' + allDocs[i].season + ')';
-          var responseEntry = document.createElement("div");
-          responseEntry.innerHTML = responseString;
-          var addButton = document.createElement("input");
-          addButton.setAttribute('type', 'button');
-          addButton.setAttribute('value', 'add');
-          addButton.setAttribute('onclick', 'savePlayer(this)');
-          addButton.setAttribute('data-stats', JSON.stringify(allDocs[i]));
-          responseEntry.appendChild(addButton);
-          divToUpdate.appendChild(responseEntry);
+      if (team1Size == 5) { //if team is fully built, display projected wins and PPG
+        var team1WinsPerGame = 0;
+        var team1Points = 0;
+
+        for (i = 0; i < 5; i++) { //add up PPG and WS of every player
+          team1Points = team1Points + team1NewPPG[i];
+          team1WinsPerGame = team1WinsPerGame + team1NewWS[i];
         }
-      });
+
+        team1Points = team1Points + 30;               //adjusting for bench players
+        var team1Wins = (team1WinsPerGame + .1) * 82; //win shares per game of starters, + .1 from non-starters, * 82 games is expected wins
+
+        team1Wins = round(team1Wins, 0);      //round wins
+        team1Points = round(team1Points, 0);  //round points
+
+        document.getElementById('team1Wins').innerHTML = 'Projected Wins Per Season: ' + team1Wins; //display
+        document.getElementById('team1Points').innerHTML = 'Projected Points Per Game: ' + team1Points; //display
+        document.getElementById('team1InfoTitle').innerHTML = 'Team Information'; //display
+      }
+      else { //keep titles and stuff the same
+        document.getElementById('team1Wins').innerHTML = 'Projected Wins Per Season:'; //display
+        document.getElementById('team1Points').innerHTML = 'Projected Points Per Game:'; //display
+        document.getElementById('team1InfoTitle').innerHTML = 'Team Information - Complete your team to see how it would perform!'; //display
+      }
+    }
 
 
-      //saves player from modal into the team
-      function savePlayer(element){
-        var playerStats = element.getAttribute('data-stats');       //get the players info from the html element that was in the modal
-        var currPlayer = JSON.parse(playerStats);                   //parse the stats into a JSON object
-        var playerSlot = document.getElementById(slotSelected);     //get the slot that the player should go in
-        playerSlot.removeChild(playerSlot.firstChild);              //remove the button in that slot
+
+    // --- Mostly helper functions and smaller display functions here on down ---- //
+
+    function openModal(element) {
+      playerAddModal.style.display = "inline-block";
+      slotSelected = element.parentElement.id;
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == playerAddModal) {
         closeModal();
-
-        // Add the players name below the portrait
-        var playerDiv = document.getElementsByClassName('playerNames')
-        var playerName = document.createElement("label");               
-        playerName.innerHTML = currPlayer.name;
-        playerName.setAttribute('for', slotSelected);
-        playerDiv.appendChild(playerName);
-        //playerName.setAttribute('data-stats', playerStats);
-
-        //create a button that removes the player
-        var addButton = document.createElement("span");
-        addButton.setAttribute('class', 'close');
-        addButton.setAttribute('onclick', 'deletePlayer(this)');
-        var bg = "images/" + currPlayer.name.replace(/\s/g, '') + ".png";
-        var styleVal = "background:url(" + bg + ")";
-        addButton.setAttribute('style', styleVal);
-        addButton.innerHTML = "&times;";
-            
-        //creates the modal that shows up if you hover over the player
-        var tooltipElement = document.createElement("span");
-        tooltipElement.setAttribute('class', 'tooltiptext');
-        tooltipText = 'Points/G: '+ currPlayer.pts_per_g + '\n' +
-                      'Assists/G: '+ currPlayer.ast_per_g + '\n' +
-                      'Rebounds/G: '+ currPlayer.trb_per_g + '\n';
-        tooltipElement.innerHTML = tooltipText;            
-          
-        //append all the new stuff to the player slot div
-        playerSlot.appendChild(addButton);
-        playerSlot.appendChild(playerName);
-        playerSlot.appendChild(tooltipElement);
-
-        //increase the team size
-        team1Size = team1Size + 1;
-        //update the team stats
-        updateTeamStats();
       }
+    }
 
-      //removes a player from the team. Called from the X button on a player slot
-      function deletePlayer(element){
-        //delete all the elements in the slot
-        var parElement = element.parentElement;
-        while (parElement.firstChild) {
-          parElement.removeChild(parElement.firstChild);
-        }
+    function closeModal() {
+      playerAddModal.style.display = "none";
+      clearSearchBox();
+      clearSearchResults();
+    }
 
-        // add back a button to the slot so we can add another player if we want 
-        var addButton = document.createElement("button");
-        addButton.innerHTML = '&#43;';
-        addButton.setAttribute('class', 'playerAdd');
-        addButton.setAttribute('onclick', 'openModal(this)');
-        parElement.appendChild(addButton);
-
-        //decrease the team size
-        team1Size = team1Size - 1;
-        //update the team stats
-        updateTeamStats();
+    function debounce(fn, duration) {
+      var timer;
+      return function () {
+        clearTimeout(timer);
+        timer = setTimeout(fn, duration);
       }
+    }
 
-      //called when player added/removed. Calculates wins/season and player stats on team
-      function updateTeamStats() {
-        
-        var team1OldStats = {};
-        var teamTotalUsg = 0;
-        var team1Names = {};
+    searchText.addEventListener('keyup', debounce(() => {
+      sendSearch();
+    }, 500))
 
-        var team1OldUsg = {};
-        var team1OldPPG = {};
-        var team1OldAPG = {};
-        var team1OldRPG = {};
-        var team1OldWS = {};
-
-        var team1NewUsg = {};
-        var team1NewPPG = {};
-        var team1NewAPG = {};
-        var team1NewRPG = {};
-        var team1NewWS = {};
-
-        //get a players old stats
-        for(i = 1; i < 6; i++){
-            var currPlayer = document.getElementById('player' + i);
-            if(currPlayer.childElementCount > 1){ //means there's a player in this slot
-              var playerStats = currPlayer.firstElementChild.nextElementSibling;
-              team1OldStats[i - 1] = JSON.parse(playerStats.getAttribute('data-Stats'));
-              team1OldWS[i - 1] = team1OldStats[i - 1].ws_per_48;
-              team1OldUsg[i - 1] = team1OldStats[i - 1].usg_pct;
-              if (team1OldUsg[i - 1] == 0){
-                team1OldUsg[i - 1] = .1;
-              }
-              team1OldPPG[i - 1] = team1OldStats[i - 1].pts_per_g;
-              team1OldAPG[i - 1] = team1OldStats[i - 1].ast_per_g[0];
-              team1OldRPG[i - 1] = team1OldStats[i - 1].trb_per_g;
-              team1Names[i - 1] = team1OldStats[i - 1].name;
-            } 
-            else { 
-              team1OldStats[i - 1] = undefined;
-              team1OldWS[i - 1] = 0;
-              team1OldUsg[i - 1] = 0;
-            }
-            teamTotalUsg = teamTotalUsg + team1OldUsg[i - 1];
-        }
-
-        //calculate a player's new stats
-        for(i = 0; i < 5; i++){
-          team1NewUsg[i] = round(team1OldUsg[i]/teamTotalUsg*100, 1);
-          team1NewPPG[i] = round(team1OldPPG[i] * team1NewUsg[i]/team1OldUsg[i], 1);
-          team1NewAPG[i] = round(team1OldAPG[i] * team1NewUsg[i]/team1OldUsg[i], 1);
-          team1NewRPG[i] = round(team1OldRPG[i] * team1NewUsg[i]/team1OldUsg[i], 1);
-          team1NewWS[i] = round(team1OldWS[i] * team1NewUsg[i]/team1OldUsg[i], 1);
-        }
-
-        //get ready to display the new stats
-        var newStatDiv = document.getElementById('newTeam1PlayerStats');
-        //delete old insatnces of "updated" stats
-        while (newStatDiv.firstChild) {
-          newStatDiv.removeChild(newStatDiv.firstChild);
-        }
-
-        //iterate through players that are defined
-        for(i = 0; i < 5; i++){          
-          if(team1OldStats[i] != undefined){
-            var newPlayerStats = document.createElement("div");
-            newPlayerStats.setAttribute('class', 'newPlayerStats');
-
-            //create text items for each attribute
-            var playerNameText = document.createElement("h4");
-            var playerPointsText = document.createElement("h4");
-            var playerAssistsText = document.createElement("h4");
-            var playerReboundsText = document.createElement("h4");
-            var playerUsageText = document.createElement("h4");
-
-            //get values for new stats
-            playerNameText.innerHTML = team1Names[i];
-            playerPointsText.innerHTML = 'Points Per Game: ' + team1OldPPG[i] + ' -> ' + team1NewPPG[i];
-            playerAssistsText.innerHTML = 'Assists Per Game: ' + team1OldAPG[i] + ' -> ' + team1NewAPG[i];
-            playerReboundsText.innerHTML = 'Rebounds Per Game: ' + team1OldRPG[i] + ' -> ' + team1NewRPG[i];
-            playerUsageText.innerHTML = 'Usage Rate: ' + team1OldUsg[i] + ' -> ' + team1NewUsg[i];
-
-            //append new stats to the player's stat div
-            newPlayerStats.appendChild(playerNameText);
-            newPlayerStats.appendChild(playerPointsText);
-            newPlayerStats.appendChild(playerAssistsText);
-            newPlayerStats.appendChild(playerReboundsText);
-            newPlayerStats.appendChild(playerUsageText);
-
-            //append the new stats div to the team stats div
-            newStatDiv.appendChild(newPlayerStats);
-          }
-        }
-
-        if(team1Size == 5){ //if team is fully built, display projected wins and PPG
-          var team1WinsPerGame = 0;
-          var team1Points = 0;
-
-          for(i = 0; i < 5; i++){ //add up PPG and WS of every player
-            team1Points = team1Points + team1NewPPG[i];
-            team1WinsPerGame = team1WinsPerGame + team1NewWS[i];
-          }
-
-          team1Points = team1Points + 30;               //adjusting for bench players
-          var team1Wins = (team1WinsPerGame + .1) * 82; //win shares per game of starters, + .1 from non-starters, * 82 games is expected wins
-          
-          team1Wins = round(team1Wins, 0);      //round wins
-          team1Points = round(team1Points, 0);  //round points
-
-          document.getElementById('team1Wins').innerHTML = 'Projected Wins Per Season: ' + team1Wins; //display
-          document.getElementById('team1Points').innerHTML = 'Projected Points Per Game: ' + team1Points; //display
-          document.getElementById('team1InfoTitle').innerHTML = 'Team Information'; //display
-        }
-        else { //keep titles and stuff the same
-          document.getElementById('team1Wins').innerHTML = 'Projected Wins Per Season:'; //display
-          document.getElementById('team1Points').innerHTML = 'Projected Points Per Game:'; //display
-          document.getElementById('team1InfoTitle').innerHTML = 'Team Information - Complete your team to see how it would perform!'; //display
-        }        
+    //deletes previous search results from modal
+    function clearSearchResults() {
+      var divToUpdate = document.getElementById("resultsDiv");
+      while (divToUpdate.firstChild) {
+        divToUpdate.removeChild(divToUpdate.firstChild);
       }
+    }
+
+    //deletes text from the player search box
+    function clearSearchBox() {
+      document.getElementById('searchText').value = '';
+    }
+
+    //helper function to round stats off
+    function round(value, decimals) {
+      return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
 
 
+  </script>
+</body>
 
-      // --- Mostly helper functions and smaller display functions here on down ---- //
-
-      function openModal(element){
-        playerAddModal.style.display = "block";
-        slotSelected = element.parentElement.id;
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == playerAddModal) {
-          closeModal();
-        }
-      }
-
-      function closeModal(){
-        playerAddModal.style.display = "none";
-        clearSearchBox();
-        clearSearchResults();
-      }
-
-      function debounce(fn, duration) {
-        var timer;
-        return function(){
-          clearTimeout(timer);
-          timer = setTimeout(fn, duration);
-        }
-      }
-
-      searchText.addEventListener('keyup', debounce(() => {
-        sendSearch();
-      }, 500))
-
-      //deletes previous search results from modal
-      function clearSearchResults(){
-        var divToUpdate = document.getElementById("resultsDiv");
-        while (divToUpdate.firstChild) {
-          divToUpdate.removeChild(divToUpdate.firstChild);
-        }
-      }
-
-      //deletes text from the player search box
-      function clearSearchBox(){
-        document.getElementById('searchText').value = '';
-      }
-
-      //helper function to round stats off
-      function round(value, decimals) {
-       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-      }
-
-
-    </script>
-  </body>
 </html>
