@@ -16,7 +16,7 @@
       <div id="team1Container"> 
         <h2 contenteditable="true">Team Name</h3> <!-- Editable title for the team -->
           <div class="team">
-            <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
+            <div class="playerBox tooltip" id="player1"><button class="playerAdd" onclick="openModal(this)">&#43;</input></div>
             <div class="playerBox tooltip" id="player2"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
             <div class="playerBox tooltip" id="player3"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
             <div class="playerBox tooltip" id="player4"><button class="playerAdd" onclick="openModal(this)">&#43;</button></div>
@@ -40,16 +40,11 @@
           <h3 id="team1Wins"> Projected Wins Per Season: </h3>
           <h3 id="team1Points"> Projected Points Per Game: </h3>
         </div>
-       <!-- <h2> Individual Player Performances </h2>
-        <div id="newTeam1PlayerStats"> -->
         <div id="player1Info">
-          hello
         </div>
         <div id="player2Info">
-          hello player2
         </div>
         <div id="player3Info">
-          hello player 3
         </div>
       </div>
 
@@ -118,7 +113,7 @@
         var currPlayer = JSON.parse(playerStats);                   //parse the stats into a JSON object
         var playerSlot = document.getElementById(slotSelected);     //get the slot that the player should go in
         playerSlot.removeChild(playerSlot.firstChild);              //remove the button in that slot
-        closeModal();         
+        closeModal();
 
         // Add the players name below the portrait
         var playerDiv = document.getElementsByClassName('playerNames')
@@ -132,6 +127,9 @@
         var addButton = document.createElement("span");
         addButton.setAttribute('class', 'close');
         addButton.setAttribute('onclick', 'deletePlayer(this)');
+        var bg = "images/" + currPlayer.name.replace(/\s/g, '') + ".png";
+        var styleVal = "background:url(" + bg + ")";
+        addButton.setAttribute('style', styleVal);
         addButton.innerHTML = "&times;";
             
         //creates the modal that shows up if you hover over the player
