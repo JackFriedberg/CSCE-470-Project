@@ -3,9 +3,9 @@ html, body {
   height: 100%;
 }
 body {
-  background-image: url("basketball.png");
-  background-size: 40%;
-  background-position: 900px center;
+  background-image: url('court.jpg');
+  background-size: 100%;
+  background-position:  center;
   background-repeat: no-repeat;
   min-height: 100%;
 }
@@ -174,8 +174,7 @@ overflow-y: auto;
   flex-flow: column;
   max-width: 100%;
   width: 1300px;
-  background-color: white;
-  opacity: 0.95;
+  
   padding: 15px 30px;
   margin: 0 auto 30px;
 }
@@ -215,17 +214,22 @@ overflow-y: auto;
 
 .resultButton {
   width: 95%;
-  background-color: #008CBA;
-  border: none;
+  background-color: #214cce;
+  background-image: url('https://d2cwpp38twqe55.cloudfront.net/req/201911262/images/players/jamesle01.jpg');
+  background-repeat: no-repeat;
+  background-size: 32px 50px;
+  border: 1px solid #214cce;
   color: white;
-  opacity: 0.6;
+  opacity: 0.9;
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
   height: 50px;
   margin: 2px;
-
+  border-radius: 5px;
 }
 
-.resultButton:hover {opacity: 1}
+.resultButton:hover {
+  opacity: 1
+}
