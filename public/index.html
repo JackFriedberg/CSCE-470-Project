@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Bungee&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <title>NBA Team Creation</title>
@@ -23,6 +24,15 @@
           </div>
       </div>
 
+      <!-- 
+      <div class="playerNames">
+          <label for="player1">test2</label>
+          <label for="player2">test2</label>
+          <label for="player3">test2</label>
+          <label for="player4">test2</label>
+          <label for="player5">test2</label>
+      </div>
+      -->
       
       <h3 id="team1InfoTitle"> Team Information - Complete your team to see how it would perform!</h2>
       <div id="team1StatContainer">
@@ -30,8 +40,16 @@
           <h3 id="team1Wins"> Projected Wins Per Season: </h3>
           <h3 id="team1Points"> Projected Points Per Game: </h3>
         </div>
-        <h2> Individual Player Performances </h2>
-        <div id="newTeam1PlayerStats">
+       <!-- <h2> Individual Player Performances </h2>
+        <div id="newTeam1PlayerStats"> -->
+        <div id="player1Info">
+          hello
+        </div>
+        <div id="player2Info">
+          hello player2
+        </div>
+        <div id="player3Info">
+          hello player 3
         </div>
       </div>
 
@@ -102,11 +120,13 @@
         playerSlot.removeChild(playerSlot.firstChild);              //remove the button in that slot
         closeModal();         
 
-        //create an element for the players name
-        var playerName = document.createElement("p");               
+        // Add the players name below the portrait
+        var playerDiv = document.getElementsByClassName('playerNames')
+        var playerName = document.createElement("label");               
         playerName.innerHTML = currPlayer.name;
-        playerName.setAttribute('class', 'playerName');
-        playerName.setAttribute('data-stats', playerStats);
+        playerName.setAttribute('for', slotSelected);
+        playerDiv.appendChild(playerName);
+        //playerName.setAttribute('data-stats', playerStats);
 
         //create a button that removes the player
         var addButton = document.createElement("span");
